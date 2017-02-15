@@ -5,7 +5,7 @@ class Catalog extends Component{
 
     render(){
         const items = this.props.products.map( p => (
-            <CatalogItem product={ p } key={ p.name }/>
+            <CatalogItem onAddToCart={ this.props.onAddToCart } product={ p } key={ p.id }/>
         ));
 
 
@@ -21,6 +21,7 @@ class Catalog extends Component{
 }
 
 Catalog.propTypes = {
-    products: PropTypes.array
+    products: PropTypes.array.isRequired,
+    onAddToCart: PropTypes.func.isRequired
 };
 export default Catalog;

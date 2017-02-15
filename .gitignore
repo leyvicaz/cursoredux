@@ -2,3 +2,7 @@ node_modules
 dist/bundle.js
 dist/bundle.js.map
 .idea/
+tema4/node_modules
+tema4/dist/bundle.js
+tema4/dist/bundle.js.map
+tema4/.idea/
