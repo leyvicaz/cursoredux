@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import HeaderTitle from './header_title';
 import CartItem from './cart_item';
+import { connect } from 'react-redux';
+import { changeQuantity } from '../../modules/cart';
+import { goToCatalog, goToCheckout } from '../../modules/route';
 
 class Cart extends Component {
 
@@ -13,16 +16,16 @@ class Cart extends Component {
 
     //Ir de nuevo al catalogo
     handleBack(e){
-        this.props.onNavigate('catalog');
+        this.props.goToCatalog();
     }
 
     handleCheckout(e){
-        this.props.onNavigate('checkout');
+        this.props.goToCheckout();
     }
 
     render(){
         const cartItems = this.props.products.map( p =>
-            <CartItem onChangeQuantity={ this.props.onChangeQuantity } product={ p } key={ p.id } />);
+            <CartItem onChangeQuantity={ this.props.changeQuantity } product={ p } key={ p.id } />);
         const total = this.props.products.reduce((acc, p) => {
             return acc + ( p.price * p.qty );
         }, 0).toFixed(2);
@@ -65,9 +68,19 @@ class Cart extends Component {
 }
 
 Cart.propTypes = {
-    products: PropTypes.arrayOf(PropTypes.object),
-    onNavigate: PropTypes.func,
-    onChangeQuantity: PropTypes.func
+    products: PropTypes.arrayOf(PropTypes.object).isRequired,
+    changeQuantity: PropTypes.func.isRequired,
+    goToCatalog: PropTypes.func.isRequired,
+    goToCheckout: PropTypes.func.isRequired,
 };
 
-export default Cart;
+const mapStateToProps = state => ({
+    products : state.cart
+})
+
+const mapDispatchToProps = {
+    changeQuantity,
+    goToCatalog,
+    goToCheckout
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

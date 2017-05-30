@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Ecommerce from './components/ecommerce';
+
 import configureStore from './configureStore';
 import { Provider } from 'react-redux';
 
